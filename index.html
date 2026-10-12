@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Миний хэмнэл: цаг ба санхүү</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0E0F11;--card:#17181B;--ink:#E6E7EA;--mut:#8D9097;--line:#2A2C31;--blue:#D4D6DB;--ok:#9CC9AD;--bad:#E5948D;
+--w:#ECEDEF;--c:#5F626A;--g:#C2C5CB;--d:#7F828A;--r:#45484F;--l:#A0A3AB;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+:root[data-theme="light"]{color-scheme:light;--bg:#ECEDEF;--card:#F7F7F8;--ink:#17181B;--mut:#5F626A;--line:#D3D5DA;--blue:#25272C;--ok:#2E7D55;--bad:#B3261E;--w:#17181B;--c:#9A9DA6;--g:#44474E;--d:#6B6E75;--r:#C4C6CC;--l:#575A61}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,"Noto Sans",system-ui,sans-serif;line-height:1.5}
+main{max-width:680px;margin:0 auto;padding:22px 14px 56px}
+h1{font-size:29px;line-height:1.15;font-weight:800;margin:6px 0 4px;letter-spacing:-.02em}
+.sub{color:var(--mut);margin:0 0 18px;font-size:15px}
+.tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto}
+.tabs button{font:inherit;font-weight:700;background:var(--card);color:var(--mut);border:1px solid var(--line);border-radius:10px;padding:9px 16px;cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+h2{font-size:18px;font-weight:800;margin:0 0 10px}
+input,select,textarea{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+select option{background:var(--card);color:var(--ink)}
+.days{display:flex;gap:6px;margin-bottom:12px}
+.days button{flex:1;font:inherit;font-weight:700;background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:8px 0;cursor:pointer}
+.days button.on{border-color:var(--blue);color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.ev{display:grid;grid-template-columns:5px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.ev:first-child{border-top:0}
+.ev i{align-self:stretch;border-radius:3px}
+.ev .t{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.ev .t input{width:112px}
+.ev .nm{width:100%;font-weight:700;margin-bottom:6px}
+.ev select{width:100%}
+.x{background:none;border:0;color:var(--mut);font-size:22px;cursor:pointer;padding:6px}
+.add{background:none;border:1px dashed var(--line);color:var(--mut);border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer;margin-top:8px}
+.bars .b{display:grid;grid-template-columns:110px 1fr 56px;gap:8px;align-items:center;font-size:14px;margin:6px 0}
+.bars .tr{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bars .tr i{display:block;height:100%}
+.bars .h{text-align:right;font-weight:700}
+.hint{color:var(--mut);font-size:13px;margin:10px 0 0}
+.fr{display:grid;grid-template-columns:1fr 90px 90px;gap:6px;align-items:center;padding:4px 0}
+.fr.hd{font-size:12px;color:var(--mut);font-weight:700}
+.fr input{width:100%;text-align:right}.fr input.nm{text-align:left}
+.fr.sv input.nm{border-color:var(--blue)}
+.fr .k{display:flex;gap:4px;align-items:center}
+.tot{display:flex;justify-content:space-between;font-weight:700;padding-top:10px;margin-top:8px;border-top:1px solid var(--line)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.big{background:var(--ink);color:var(--bg);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.big b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em}
+.big span{font-size:14px;opacity:.92}
+.lab{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+.lab input{width:130px;text-align:right}
+textarea{width:100%;min-height:200px;resize:vertical}
+.note{font-size:13px;color:var(--mut)}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.mh h2{margin:0}
+.rb{font:inherit;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.wd{text-align:center;font-size:12px;color:var(--mut);padding:4px 0}
+.cd{aspect-ratio:1/1.05;display:flex;flex-direction:column;align-items:center;justify-content:space-between;font:inherit;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 0;cursor:pointer;min-width:0}
+.cd span{font-weight:700;font-size:14px}.cd em{font-style:normal;font-size:11px;opacity:.85;min-height:13px}.cd u{text-decoration:none;font-size:10px;color:var(--mut);min-height:12px;line-height:1}
+.cd.td{background:var(--line)}.cd.sl{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.rm{display:grid;grid-template-columns:auto 48px 1fr auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.rm input[type=checkbox]{width:20px;height:20px;accent-color:#C2C5CB}
+.rm.dn .rn{text-decoration:line-through;color:var(--mut)}
+.rt{font-size:13px;color:var(--mut);font-weight:700}
+.xr{background:none;border:0;color:var(--mut);font-size:22px;cursor:pointer;padding:4px 8px}
+.af,.ml{display:grid;grid-template-columns:1fr 1fr;gap:8px}.af{margin-top:12px}.ml{padding:12px 0;border-top:1px solid var(--line)}
+.full{grid-column:1/-1;width:100%}
+.sc{display:flex;gap:8px;align-items:center;font-size:14px;padding:4px 0}.sc i{width:4px;height:18px;border-radius:2px;flex:none}
+.dh{font-weight:800;margin:14px 0 2px}
+.tabs button{padding:9px 14px}
+
+</style>
+</head>
+<body>
+<main>
+<h1>Миний хэмнэл</h1>
+<p class="sub">Календарь, сануулга, цагийн хуваарь, санхүү. Бүгдийг засаж болно.</p>
+<div class="tabs" role="tablist">
+<button data-tab="c" class="on">Календарь</button><button data-tab="r">Сануулга</button><button data-tab="t">Хуваарь</button><button data-tab="f">Санхүү</button><button data-tab="n">Тэмдэглэл</button>
+</div>
+<div id="v"></div>
+</main>
+
+<script>
+var KEY="rhythm-v1",DN=["Да","Мя","Лх","Пү","Ба","Бя","Ня"];
+var CAT={w:"Ажил",c:"Зам",g:"Герман хэл",d:"Дизайн",r:"Амралт, нойр",l:"Өдөр тутам"};
+var post=["Даваа: дизайн зөвлөгөө","Мягмар: чөлөөтэй","Лхагва: дууссан ажил","Пүрэв: чөлөөтэй","Баасан: BTS (процесс)"];
+function wk(i){
+ var p=["Дизайн: пост бэлтгэх (зөвлөгөө)","Дизайн, фрийланс","Дизайн: дууссан ажил нийтлэх","Дизайн, фрийланс","Дизайн: BTS пост бэлтгэх"][i];
+ return [["06:30","07:40","Босох, бэлдэх","l"],["07:40","09:00","Замд: герман үг, аудио (утсаар)","c"],["09:00","18:00","Ажил","w"],
+ ["18:00","20:00","Гэр рүү: подкаст, зургийн санаа","c"],["20:00","20:45","Оройн хоол, амралт","l"],["20:45","21:45","Герман хэл (хичээл)","g"],
+ ["21:45","22:30",p,"d"],["22:30","23:00","Амрах, маргаашийн бэлтгэл","r"],["23:00","06:30","Нойр","r"]];
+}
+var D=[0,1,2,3,4].map(wk);
+D.push([["09:00","10:00","Босох, хоол","l"],["10:00","12:00","Герман хэл","g"],["12:00","13:00","Үдийн хоол","l"],["13:00","16:00","Дизайн, фрийланс","d"],["16:00","18:00","Гадуур гарах, хөдөлгөөн","r"],["18:00","20:00","Хайртай хүн, найзууд","l"],["20:00","21:00","Герман хэлний давтлага","g"]]);
+D.push([["10:00","11:00","Босох, хоол","l"],["11:00","13:00","Герман хэл","g"],["13:00","16:00","Амралт","r"],["16:00","18:00","Collab, харилцаа, Sunday пост","d"],["18:00","20:00","7 хоногийн төлөвлөгөө, санхүү шалгах","l"],["20:00","22:00","Амралт","r"]]);
+var DEF={days:D,day:0,tab:"t",notes:"",fin:{inc4:850000,inc19:780000,free:0,have:0,target:12000,rate:3900,
+ rows:[["Түрээс, гэр (тооцоо)",220000,0,0],["Зээлийн төлбөр (тооцоо)",60000,0,0],["Хоол, өдөр тутам",120000,250000,0],["Унаа, такси",70000,100000,0],
+ ["Герман хэлний сургалт",75000,75000,0],["Германы сан",250000,150000,1],["Өөрийн зардал",55000,80000,0],["Нөөц, гэнэтийн",0,125000,0]]}};
+var S=null;
+try{var raw=localStorage.getItem(KEY);if(raw)S=JSON.parse(raw)}catch(e){}
+if(!S||!S.days)S=JSON.parse(JSON.stringify(DEF));
+var MN=['1-р сар','2-р сар','3-р сар','4-р сар','5-р сар','6-р сар','7-р сар','8-р сар','9-р сар','10-р сар','11-р сар','12-р сар'];
+function p2(n){return ('0'+n).slice(-2)}
+function ds(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
+function pd(s){var a=s.split('-');return new Date(+a[0],+a[1]-1,+a[2])}
+function wi(s){return (pd(s).getDay()+6)%7}
+if(!S.rem){
+ S.nid=100;S.tab='c';
+ S.rem=[
+  {id:1,d:'2026-10-19',t:'09:00',n:'19-ний цалин: Германы санд шилжүүл, хоол/унааны зардлаа тооц',rep:'monthly',done:{}},
+  {id:2,d:'2026-11-04',t:'09:00',n:'4-ний цалин: түрээс, зээл төл, Германы санд шилжүүл',rep:'monthly',done:{}},
+  {id:3,d:'2026-10-12',t:'21:45',n:'Дизайн зөвлөгөө пост',rep:'weekly',done:{}},
+  {id:4,d:'2026-10-14',t:'21:45',n:'Дууссан ажлаа нийтлэх',rep:'weekly',done:{}},
+  {id:5,d:'2026-10-16',t:'21:45',n:'BTS (процесс) пост',rep:'weekly',done:{}},
+  {id:6,d:'2026-10-18',t:'17:00',n:'Collab, харилцаа + 7 хоногийн санхүү шалгах',rep:'weekly',done:{}},
+  {id:7,d:'2027-06-01',t:'09:00',n:'Хугацаатай хадгаламж 6-р сард дуусна: банкаас лавлаж, зээлээ хаах',rep:'once',done:{}}
+ ];
+}
+if(!S.sel){var n0=new Date();S.cy=n0.getFullYear();S.cm=n0.getMonth();S.sel=ds(n0)}
+var REP={once:'Нэг удаа',daily:'Өдөр бүр',weekly:'7 хоног бүр',monthly:'Сар бүр'};
+function occ(r,s){
+ if(s<r.d)return false;
+ if(r.rep==='once')return s===r.d;
+ if(r.rep==='daily')return true;
+ var a=pd(r.d),b=pd(s);
+ if(r.rep==='weekly')return a.getDay()===b.getDay();
+ if(r.rep==='monthly')return a.getDate()===b.getDate();
+ return false;
+}
+function remsOn(s){return S.rem.filter(function(r){return occ(r,s)}).sort(function(a,b){return a.t<b.t?-1:1})}
+function remRow(r,s){
+ var dn=r.done&&r.done[s];
+ return '<div class="rm'+(dn?' dn':'')+'"><input type="checkbox" data-ck="'+r.id+'" data-dt="'+s+'"'+(dn?' checked':'')+' aria-label="Хийсэн"><span class="rt">'+r.t+'</span><span class="rn">'+esc(r.n)+'</span><button class="xr" data-rx="'+r.id+'" aria-label="Устгах" title="Бүх давталттай нь устна">×</button></div>';
+}
+function vC(){
+ var y=S.cy,m=S.cm,off=(new Date(y,m,1).getDay()+6)%7,dim=new Date(y,m+1,0).getDate(),TD=ds(new Date());
+ var h='<div class="card"><div class="mh"><button class="rb" data-mv="-1" aria-label="Өмнөх сар">‹</button><h2>'+y+' оны '+MN[m]+'</h2><button class="rb" data-mv="1" aria-label="Дараах сар">›</button></div><div class="cg">';
+ DN.forEach(function(n){h+='<b class="wd">'+n+'</b>'});
+ for(var i=0;i<off;i++)h+='<span></span>';
+ for(var d=1;d<=dim;d++){
+  var s=y+'-'+p2(m+1)+'-'+p2(d),n=remsOn(s).length;
+  h+='<button class="cd'+(s===TD?' td':'')+(s===S.sel?' sl':'')+'" data-cd="'+s+'"><span>'+d+'</span><em>'+((d===4||d===19)?'₮':'')+'</em><u>'+(n?'•'.repeat(Math.min(n,3)):'')+'</u></button>';
+ }
+ h+='</div><div class="mh" style="margin:12px 0 0"><span class="hint" style="margin:0">₮ цалингийн өдөр, цэг нь сануулгын тоо</span><button class="rb" data-today="1">Өнөөдөр</button></div></div>';
+ var s2=S.sel,w=wi(s2);
+ h+='<div class="card"><h2>'+s2+' · '+DN[w]+'</h2>';
+ var rs=remsOn(s2);
+ if(!rs.length)h+='<p class="hint" style="margin:0 0 6px">Энэ өдөр сануулга алга.</p>';
+ rs.forEach(function(r){h+=remRow(r,s2)});
+ h+='<div class="af"><input type="time" id="at" value="09:00" aria-label="Цаг"><select id="ar" aria-label="Давтамж">';
+ for(var k in REP)h+='<option value="'+k+'">'+REP[k]+'</option>';
+ h+='</select><input id="an" class="full" placeholder="Сануулга бичих" aria-label="Сануулга"><button class="rb full" id="aa">+ Сануулга нэмэх</button></div></div>';
+ h+='<div class="card"><div class="mh"><h2>'+DN[w]+' гарагийн хуваарь</h2><button class="rb" data-go="'+w+'">Засах</button></div>';
+ S.days[w].forEach(function(e){h+='<div class="sc"><i style="background:var(--'+e[3]+')"></i><span class="rt" style="width:96px">'+e[0]+'–'+e[1]+'</span><span>'+esc(e[2])+'</span></div>'});
+ h+='</div>';
+ V.innerHTML=h;
+}
+function vR(){
+ var h='<div class="card"><h2>Ойрын 14 хоног</h2>',cnt=0,t0=new Date();
+ for(var i=0;i<14;i++){
+  var d=new Date(t0.getFullYear(),t0.getMonth(),t0.getDate()+i),s=ds(d),rs=remsOn(s);
+  if(!rs.length)continue;cnt++;
+  h+='<div class="dh">'+(i===0?'Өнөөдөр':(i===1?'Маргааш':s))+' <span class="rt">'+DN[wi(s)]+' · '+s+'</span></div>';
+  rs.forEach(function(r){h+=remRow(r,s)});
+ }
+ if(!cnt)h+='<p class="hint">Ойрын 14 хоногт сануулга алга.</p>';
+ h+='</div><div class="card"><div class="mh"><h2>Бүх сануулга</h2><button class="rb" id="ra">+ Нэмэх</button></div>';
+ S.rem.slice().sort(function(a,b){return a.d<b.d?-1:1}).forEach(function(r){
+  h+='<div class="ml"><input type="date" data-f="d" data-rid="'+r.id+'" value="'+r.d+'" aria-label="Эхлэх огноо"><input type="time" data-f="t" data-rid="'+r.id+'" value="'+r.t+'" aria-label="Цаг">'
+   +'<input class="full" data-f="n" data-rid="'+r.id+'" value="'+esc(r.n)+'" aria-label="Сануулга"><select data-f="rep" data-rid="'+r.id+'" aria-label="Давтамж">';
+  for(var k in REP)h+='<option value="'+k+'"'+(k===r.rep?' selected':'')+'>'+REP[k]+'</option>';
+  h+='</select><button class="rb" data-rx="'+r.id+'">Устгах</button></div>';
+ });
+ h+='<p class="hint">Сануулга нь энэ хуудсанд харагдана. Утсандаа дуугаар сануулахыг хүсвэл чухал нэг-хоёрыг утасныхаа календарь эсвэл сэрүүлэгт давхар оруулаарай.</p></div>';
+ V.innerHTML=h;
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+function f(n){return Math.round(n).toLocaleString("en-US")+"₮"}
+function num(v){return +String(v).replace(/\D/g,"")||0}
+function mins(t){var a=t.split(":");return +a[0]*60+ +a[1]}
+function dur(e){var d=mins(e[1])-mins(e[0]);if(d<=0)d+=1440;return d}
+var V=document.getElementById("v");
+
+function vT(){
+ var h='<div class="days">';
+ DN.forEach(function(n,i){h+='<button data-d="'+i+'"'+(i==S.day?' class="on"':'')+'>'+n+'</button>'});
+ h+='</div><div class="card" id="evs">';
+ S.days[S.day].forEach(function(e,j){
+  h+='<div class="ev" data-j="'+j+'"><i style="background:var(--'+e[3]+')"></i><div>'
+   +'<div class="t"><input type="time" class="s" value="'+e[0]+'" aria-label="Эхлэх"> – <input type="time" class="e" value="'+e[1]+'" aria-label="Дуусах"></div>'
+   +'<input class="nm" value="'+esc(e[2])+'" aria-label="Нэр"><select class="cat" aria-label="Төрөл">';
+  for(var k in CAT)h+='<option value="'+k+'"'+(k==e[3]?' selected':'')+'>'+CAT[k]+'</option>';
+  h+='</select></div><button class="x" aria-label="Устгах">×</button></div>';
+ });
+ h+='<button class="add">+ Үйл ажиллагаа нэмэх</button></div>';
+ var tot={};for(var k in CAT)tot[k]=0;
+ S.days.forEach(function(d){d.forEach(function(e){tot[e[3]]+=dur(e)})});
+ var mx=Math.max.apply(null,Object.keys(tot).map(function(k){return tot[k]}))||1;
+ h+='<div class="card bars"><h2>7 хоногийн цаг</h2>';
+ for(var k in CAT)h+='<div class="b"><span>'+CAT[k]+'</span><div class="tr"><i style="width:'+tot[k]/mx*100+'%;background:var(--'+k+')"></i></div><span class="h">'+(tot[k]/60).toFixed(1)+' ц</span></div>';
+ h+='<p class="hint">Ажлын өдрүүдэд замд өдөрт ~3 цаг зарцуулдаг. Энэ цагийг герман үг, аудио хичээлд ашиглавал хичээлийн цаг хэмнэнэ.</p></div>';
+ V.innerHTML=h;
+}
+function vF(){
+ var F=S.fin,h='';
+ h+='<div class="big"><b id="mo"></b><span id="mo2"></span></div>';
+ h+='<div class="card"><h2>Орлого</h2><div class="lab"><span>4-ний цалин</span><input data-k="inc4" inputmode="numeric" value="'+F.inc4+'"></div>'
+  +'<div class="lab"><span>19-ний цалин</span><input data-k="inc19" inputmode="numeric" value="'+F.inc19+'"></div>'
+  +'<div class="lab"><span>Фрийланс орлого (сард)</span><input data-k="free" inputmode="numeric" value="'+F.free+'"></div></div>';
+ h+='<div class="card"><h2>Зарлагын хуваарилалт</h2><div class="fr hd"><span>Нэр</span><span>4-ний</span><span>19-ний</span></div>';
+ F.rows.forEach(function(r,j){
+  h+='<div class="fr'+(r[3]?' sv':'')+'" data-j="'+j+'"><input class="nm" value="'+esc(r[0])+'" aria-label="Нэр"><input class="a4" inputmode="numeric" value="'+r[1]+'" aria-label="4-ний дүн"><input class="a19" inputmode="numeric" value="'+r[2]+'" aria-label="19-ний дүн"></div>';
+ });
+ h+='<button class="add" id="fa">+ Мөр нэмэх</button><div class="tot"><span>4-ний үлдэгдэл</span><span id="l4"></span></div><div class="tot" style="border:0;margin:0;padding-top:4px"><span>19-ний үлдэгдэл</span><span id="l19"></span></div>'
+  +'<p class="hint">Цэнхэр хүрээтэй мөр нь хуримтлал. Мөр устгахын тулд нэрийг нь хоослоод гарч болно.</p></div>';
+ h+='<div class="card"><h2>Германы санхүүгийн зорилго</h2>'
+  +'<div class="lab"><span>Зорилтот дүн (евро)</span><input data-k="target" inputmode="numeric" value="'+F.target+'"></div>'
+  +'<div class="lab"><span>1 евро = ₮</span><input data-k="rate" inputmode="numeric" value="'+F.rate+'"></div>'
+  +'<div class="lab"><span>Одоо байгаа хуримтлал (₮)</span><input data-k="have" inputmode="numeric" value="'+F.have+'"></div>'
+  +'<div class="tot"><span>Зорилтот дүн (₮)</span><span id="tg"></span></div><div class="tot" style="border:0;margin:0;padding-top:4px"><span>Хүрэх хугацаа</span><span id="mt"></span></div>'
+  +'<p class="hint">12,000 евро нь хаалттай данс (Sperrkonto) шаардлагын ойролцоо тоо. Виз-ийн төрлөөр өөр байж болох тул одоогийн шаардлагыг Германы элчин сайдын яамнаас шалгаарай. Хөрвүүлэх ханш болон хүүг өөрийнхөөрөө оруул.</p></div>';
+ V.innerHTML=h;uF();
+}
+function uF(){
+ var F=S.fin,s4=0,s19=0,sv=0;
+ F.rows.forEach(function(r){s4+=r[1];s19+=r[2];if(r[3])sv+=r[1]+r[2]});
+ var l4=F.inc4-s4,l19=F.inc19-s19;
+ var msv=sv+F.free;
+ document.getElementById("mo").textContent=f(msv);
+ document.getElementById("mo2").textContent="Сард Германы санд хуримтлуулах дүн (фрийланс орлого оролцсон)";
+ var a=document.getElementById("l4"),b=document.getElementById("l19");
+ a.textContent=(l4<0?"Хэтэрсэн ":"")+f(Math.abs(l4));a.className=l4<0?"bad":"ok";
+ b.textContent=(l19<0?"Хэтэрсэн ":"")+f(Math.abs(l19));b.className=l19<0?"bad":"ok";
+ var tg=F.target*F.rate;
+ document.getElementById("tg").textContent=f(tg);
+ var need=Math.max(0,tg-F.have),m=msv>0?Math.ceil(need/msv):0,el=document.getElementById("mt");
+ if(need==0)el.textContent="Зорилгодоо хүрсэн";
+ else if(msv<=0)el.textContent="Хуримтлал оруулна уу";
+ else{var d=new Date();d.setMonth(d.getMonth()+m);el.textContent=m+" сар ("+d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+")"}
+ save();
+}
+function vN(){
+ V.innerHTML='<div class="card"><h2>Нэмэлт мэдээлэл</h2><textarea id="nt" placeholder="Герман хэлний сургуулийн цаг, фрийланс захиалга, нэг удаагийн зардал, хийх зүйлс...">'+esc(S.notes)+'</textarea><p class="note">Энэ төхөөрөмж дээр хадгалагдана.</p></div>';
+}
+function render(){
+ document.querySelectorAll(".tabs button").forEach(function(b){b.classList.toggle("on",b.dataset.tab==S.tab)});
+ ({c:vC,r:vR,t:vT,f:vF,n:vN})[S.tab]();save();
+}
+document.querySelector(".tabs").addEventListener("click",function(e){var t=e.target.dataset.tab;if(t){S.tab=t;render()}});
+V.addEventListener("click",function(e){
+ var t=e.target;
+ if(t.dataset.d!==undefined){S.day=+t.dataset.d;render();return}
+ if(t.classList.contains("x")){S.days[S.day].splice(+t.closest(".ev").dataset.j,1);render();return}
+ if(t.classList.contains("add")&&t.id!="fa"){S.days[S.day].push(["20:00","21:00","Шинэ үйл ажиллагаа","l"]);render();return}
+ if(t.id=="fa"){S.fin.rows.push(["Шинэ зардал",0,0,0]);render()}
+});
+V.addEventListener("input",function(e){
+ var t=e.target;
+ if(t.id=="nt"){S.notes=t.value;save();return}
+ if(S.tab=="f"){
+  if(t.dataset.k){S.fin[t.dataset.k]=num(t.value)}
+  else{var r=S.fin.rows[+t.closest(".fr").dataset.j];
+   if(t.classList.contains("nm"))r[0]=t.value;else if(t.classList.contains("a4"))r[1]=num(t.value);else r[2]=num(t.value)}
+  uF();
+ }
+});
+V.addEventListener("change",function(e){
+ var t=e.target;
+ if(S.tab=="t"){
+  var ev=t.closest(".ev");if(!ev)return;
+  var d=S.days[S.day],x=d[+ev.dataset.j];
+  if(t.classList.contains("s"))x[0]=t.value||x[0];
+  else if(t.classList.contains("e"))x[1]=t.value||x[1];
+  else if(t.classList.contains("nm"))x[2]=t.value;
+  else if(t.classList.contains("cat"))x[3]=t.value;
+  d.sort(function(a,b){return mins(a[0])-mins(b[0])});
+  render();
+ }else if(S.tab=="f"&&t.classList.contains("nm")&&!t.value.trim()){
+  S.fin.rows.splice(+t.closest(".fr").dataset.j,1);render();
+ }
+});
+V.addEventListener('click',function(e){
+ var t=e.target.closest('button');if(!t)return;
+ if(t.dataset.mv){S.cm+=+t.dataset.mv;if(S.cm<0){S.cm=11;S.cy--}if(S.cm>11){S.cm=0;S.cy++}render()}
+ else if(t.dataset.cd){S.sel=t.dataset.cd;render()}
+ else if(t.dataset.today){var n=new Date();S.cy=n.getFullYear();S.cm=n.getMonth();S.sel=ds(n);render()}
+ else if(t.dataset.go){S.tab='t';S.day=+t.dataset.go;render()}
+ else if(t.id==='aa'){var tx=document.getElementById('an').value.trim();if(!tx)return;S.rem.push({id:S.nid++,d:S.sel,t:document.getElementById('at').value||'09:00',n:tx,rep:document.getElementById('ar').value,done:{}});render()}
+ else if(t.id==='ra'){S.rem.push({id:S.nid++,d:ds(new Date()),t:'09:00',n:'Шинэ сануулга',rep:'once',done:{}});render()}
+ else if(t.dataset.rx){S.rem=S.rem.filter(function(r){return r.id!==+t.dataset.rx});render()}
+});
+V.addEventListener('change',function(e){
+ var t=e.target;
+ if(t.dataset.ck){S.rem.forEach(function(r){if(r.id===+t.dataset.ck){r.done=r.done||{};r.done[t.dataset.dt]=t.checked?1:0}});render()}
+ else if(t.dataset.f){S.rem.forEach(function(r){if(r.id===+t.dataset.rid){r[t.dataset.f]=t.value||r[t.dataset.f]}});render()}
+});
+render();
+</script>
+</body>
+</html>
